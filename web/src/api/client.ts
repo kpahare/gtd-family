@@ -105,6 +105,14 @@ class ApiClient {
     localStorage.removeItem('refresh_token');
   }
 
+  async googleLogin(credential: string): Promise<User> {
+    const response = await this.client.post<AuthTokens>('/auth/google', {
+      credential,
+    });
+    this.setTokens(response.data);
+    return this.getCurrentUser();
+  }
+
   async getCurrentUser(): Promise<User> {
     const response = await this.client.get<User>('/auth/me');
     return response.data;
