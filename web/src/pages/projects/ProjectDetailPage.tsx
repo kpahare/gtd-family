@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import { useProjectsStore, useItemsStore, useContextsStore } from '../../store';
 import { Header } from '../../components/layout';
 import { ItemList, ItemForm } from '../../components/items';
@@ -62,7 +63,7 @@ export function ProjectDetailPage() {
   if (!currentProject) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500">Project not found</p>
+        <p className="text-stone-500">Project not found</p>
         <Button variant="ghost" onClick={() => navigate('/projects')} className="mt-4">
           Back to Projects
         </Button>
@@ -75,11 +76,9 @@ export function ProjectDetailPage() {
       <div className="mb-6">
         <button
           onClick={() => navigate('/projects')}
-          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 mb-4"
+          className="inline-flex items-center text-sm text-stone-500 hover:text-stone-700 mb-4"
         >
-          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
+          <ChevronLeft className="w-4 h-4 mr-1" />
           Back to Projects
         </button>
       </div>
@@ -102,7 +101,7 @@ export function ProjectDetailPage() {
       />
 
       <div className="mt-8">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Project Items</h2>
+        <h2 className="text-lg font-semibold tracking-tight text-stone-900 mb-4">Project Items</h2>
 
         <div className="mb-6">
           <ItemForm

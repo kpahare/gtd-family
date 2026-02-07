@@ -29,7 +29,7 @@ export function ItemList({
 
   if (items.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500">
+      <div className="text-center py-12 text-stone-500">
         <p>{emptyMessage}</p>
       </div>
     );

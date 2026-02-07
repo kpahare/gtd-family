@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 import { useProjectsStore } from '../../store';
 import { Header } from '../../components/layout';
 import { ProjectList, ProjectForm } from '../../components/projects';
@@ -25,9 +26,7 @@ export function ProjectsPage() {
         subtitle={`${activeProjects.length} active project${activeProjects.length !== 1 ? 's' : ''}`}
         action={
           <Button onClick={() => setShowForm(true)}>
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
+            <Plus className="w-4 h-4 mr-2" />
             New Project
           </Button>
         }
@@ -35,7 +34,7 @@ export function ProjectsPage() {
 
       <div className="space-y-8">
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Active</h2>
+          <h2 className="text-lg font-semibold tracking-tight text-stone-900 mb-4">Active</h2>
           <ProjectList
             projects={activeProjects}
             isLoading={isLoading}
@@ -47,7 +46,7 @@ export function ProjectsPage() {
 
         {somedayProjects.length > 0 && (
           <section>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Someday/Maybe</h2>
+            <h2 className="text-lg font-semibold tracking-tight text-stone-900 mb-4">Someday/Maybe</h2>
             <ProjectList
               projects={somedayProjects}
               onProjectClick={(p) => navigate(`/projects/${p.id}`)}
@@ -58,7 +57,7 @@ export function ProjectsPage() {
 
         {completedProjects.length > 0 && (
           <section>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Completed</h2>
+            <h2 className="text-lg font-semibold tracking-tight text-stone-900 mb-4">Completed</h2>
             <ProjectList
               projects={completedProjects}
               onProjectClick={(p) => navigate(`/projects/${p.id}`)}

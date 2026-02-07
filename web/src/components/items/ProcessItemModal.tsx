@@ -93,9 +93,9 @@ export function ProcessItemModal({
     >
       {item && (
         <div className="space-y-4">
-          <div className="p-3 bg-gray-50 rounded-lg">
-            <p className="font-medium text-gray-900">{item.title}</p>
-            {item.notes && <p className="text-sm text-gray-500 mt-1">{item.notes}</p>}
+          <div className="p-3 bg-stone-50 rounded-lg">
+            <p className="font-medium text-stone-900">{item.title}</p>
+            {item.notes && <p className="text-sm text-stone-500 mt-1">{item.notes}</p>}
           </div>
 
           <Select

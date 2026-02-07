@@ -1,3 +1,4 @@
+import { Trash2 } from 'lucide-react';
 import { FamilyMember, FamilyRole } from '../../types';
 import { Card, CardContent, Button, Spinner } from '../ui';
 
@@ -16,9 +17,9 @@ const roleLabels: Record<FamilyRole, string> = {
 };
 
 const roleBadgeColors: Record<FamilyRole, string> = {
-  owner: 'bg-purple-100 text-purple-800',
-  admin: 'bg-blue-100 text-blue-800',
-  member: 'bg-gray-100 text-gray-800',
+  owner: 'bg-amber-50 text-amber-700',
+  admin: 'bg-sky-50 text-sky-700',
+  member: 'bg-stone-100 text-stone-700',
 };
 
 export function MemberList({
@@ -34,7 +35,7 @@ export function MemberList({
 
   if (members.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500">
+      <div className="text-center py-12 text-stone-500">
         <p>No members</p>
       </div>
     );
@@ -54,17 +55,17 @@ export function MemberList({
         <Card key={member.id}>
           <CardContent className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">
+              <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-medium">
                 {member.user_name.charAt(0).toUpperCase()}
               </div>
               <div>
-                <p className="font-medium text-gray-900">
+                <p className="font-medium text-stone-900">
                   {member.user_name}
                   {member.user_id === currentUserId && (
-                    <span className="text-gray-400 font-normal ml-1">(you)</span>
+                    <span className="text-stone-400 font-normal ml-1">(you)</span>
                   )}
                 </p>
-                <p className="text-sm text-gray-500">{member.user_email}</p>
+                <p className="text-sm text-stone-500">{member.user_email}</p>
               </div>
             </div>
 
@@ -78,9 +79,7 @@ export function MemberList({
                   size="sm"
                   onClick={() => onRemove(member.user_id)}
                 >
-                  <svg className="w-4 h-4 text-gray-400 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
+                  <Trash2 className="w-4 h-4 text-stone-400 hover:text-rose-500" />
                 </Button>
               )}
             </div>

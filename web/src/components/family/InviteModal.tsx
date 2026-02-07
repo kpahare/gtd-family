@@ -32,7 +32,7 @@ export function InviteModal({ isOpen, onClose, inviteCode, onGenerateNew }: Invi
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Invite Family Members">
       <div className="space-y-4">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-stone-600">
           Share this link with family members to invite them to join your family group.
         </p>
 
@@ -43,9 +43,9 @@ export function InviteModal({ isOpen, onClose, inviteCode, onGenerateNew }: Invi
           </Button>
         </div>
 
-        <div className="pt-4 border-t">
-          <p className="text-sm text-gray-500 mb-2">
-            Invite code: <code className="bg-gray-100 px-2 py-1 rounded">{inviteCode}</code>
+        <div className="pt-4 border-t border-stone-200">
+          <p className="text-sm text-stone-500 mb-2">
+            Invite code: <code className="bg-stone-100 px-2 py-1 rounded">{inviteCode}</code>
           </p>
           <Button
             variant="ghost"

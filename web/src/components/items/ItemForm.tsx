@@ -29,7 +29,7 @@ export function ItemForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-3">
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
       <div className="flex-1">
         <Input
           value={title}

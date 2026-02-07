@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useReviewStore } from '../../store';
 import { Header } from '../../components/layout';
 import { ReviewChecklist } from '../../components/review';
-import { Button, Input, Card, CardContent, Modal } from '../../components/ui';
+import { Button, Card, CardContent, Modal } from '../../components/ui';
 
 export function WeeklyReviewPage() {
   const {
@@ -72,9 +72,9 @@ export function WeeklyReviewPage() {
       />
 
       {lastReview && (
-        <Card className="mb-6 bg-blue-50 border-blue-200">
+        <Card className="mb-6 bg-sky-50 border-sky-200">
           <CardContent>
-            <p className="text-sm text-blue-800">
+            <p className="text-sm text-sky-800">
               Last review completed: <strong>{formatDate(lastReview.created_at)}</strong>
             </p>
           </CardContent>
@@ -104,17 +104,17 @@ export function WeeklyReviewPage() {
         }
       >
         <div className="space-y-4">
-          <p className="text-gray-600">
+          <p className="text-stone-600">
             Great job completing all the review steps! Add any notes from your review session.
           </p>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-stone-700 mb-1">
               Notes (optional)
             </label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3.5 py-2.5 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500"
               rows={4}
               placeholder="Any insights or observations from your review..."
             />

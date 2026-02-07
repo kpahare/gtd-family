@@ -1,3 +1,4 @@
+import { Check, Trash2 } from 'lucide-react';
 import { Item, Context } from '../../types';
 import { Card, CardContent, Button } from '../ui';
 
@@ -25,25 +26,23 @@ export function ItemCard({
       <CardContent className="flex items-start gap-3">
         <button
           onClick={() => onComplete?.(item.id)}
-          className={`mt-0.5 w-5 h-5 rounded-full border-2 flex-shrink-0 transition-colors ${
+          className={`mt-0.5 w-5 h-5 rounded-full border-2 flex-shrink-0 transition-colors flex items-center justify-center ${
             isCompleted
-              ? 'bg-green-500 border-green-500'
-              : 'border-gray-300 hover:border-blue-500'
+              ? 'bg-emerald-500 border-emerald-500'
+              : 'border-stone-300 hover:border-amber-500'
           }`}
         >
           {isCompleted && (
-            <svg className="w-full h-full text-white p-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-            </svg>
+            <Check className="w-3 h-3 text-white" strokeWidth={3} />
           )}
         </button>
 
         <div className="flex-1 min-w-0">
-          <p className={`text-gray-900 ${isCompleted ? 'line-through' : ''}`}>
+          <p className={`text-stone-900 ${isCompleted ? 'line-through' : ''}`}>
             {item.title}
           </p>
           {item.notes && (
-            <p className="text-sm text-gray-500 mt-1 line-clamp-2">{item.notes}</p>
+            <p className="text-sm text-stone-500 mt-1 line-clamp-2">{item.notes}</p>
           )}
           <div className="flex items-center gap-2 mt-2 flex-wrap">
             {context && (
@@ -55,7 +54,7 @@ export function ItemCard({
               </span>
             )}
             {item.due_date && (
-              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800">
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700">
                 {new Date(item.due_date).toLocaleDateString()}
               </span>
             )}
@@ -69,9 +68,7 @@ export function ItemCard({
             </Button>
           )}
           <Button variant="ghost" size="sm" onClick={() => onDelete?.(item.id)}>
-            <svg className="w-4 h-4 text-gray-400 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
+            <Trash2 className="w-4 h-4 text-stone-400 hover:text-rose-500" />
           </Button>
         </div>
       </CardContent>

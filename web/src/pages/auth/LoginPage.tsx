@@ -74,17 +74,17 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-stone-50 px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">GTD Family</h1>
-          <p className="text-gray-600 mt-2">Sign in to your account</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-stone-900">GTD Family</h1>
+          <p className="text-stone-600 mt-2">Sign in to your account</p>
         </div>
 
         <Card>
           <CardContent className="p-6">
             {error && (
-              <div className="p-3 mb-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+              <div className="p-3 mb-4 bg-rose-50 border border-rose-200 rounded-lg text-rose-700 text-sm">
                 {error}
               </div>
             )}
@@ -95,10 +95,10 @@ export function LoginPage() {
                 <div id="google-signin-button" className="flex justify-center mb-4"></div>
                 <div className="relative my-6">
                   <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-300"></div>
+                    <div className="w-full border-t border-stone-300"></div>
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white text-gray-500">Or continue with email</span>
+                    <span className="px-2 bg-white text-stone-500">Or continue with email</span>
                   </div>
                 </div>
               </>
@@ -133,9 +133,9 @@ export function LoginPage() {
           </CardContent>
         </Card>
 
-        <p className="text-center mt-4 text-sm text-gray-600">
+        <p className="text-center mt-4 text-sm text-stone-600">
           Don't have an account?{' '}
-          <Link to="/register" className="text-blue-600 hover:underline">
+          <Link to="/register" className="text-amber-600 hover:text-amber-700">
             Sign up
           </Link>
         </p>

@@ -1,4 +1,5 @@
 import { useEffect, useState, FormEvent } from 'react';
+import { Plus, Pencil, Trash2 } from 'lucide-react';
 import { useContextsStore } from '../../store';
 import { Context } from '../../types';
 import { Header } from '../../components/layout';
@@ -71,9 +72,7 @@ export function ContextsPage() {
         subtitle={`${contexts.length} context${contexts.length !== 1 ? 's' : ''}`}
         action={
           <Button onClick={() => setShowForm(true)}>
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
+            <Plus className="w-4 h-4 mr-2" />
             New Context
           </Button>
         }
@@ -82,7 +81,7 @@ export function ContextsPage() {
       {isLoading ? (
         <Spinner className="py-12" />
       ) : contexts.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-stone-500">
           <p>No contexts yet</p>
           <p className="text-sm mt-1">Create contexts to organize your actions by location or tool</p>
         </div>
@@ -96,18 +95,14 @@ export function ContextsPage() {
                     className="w-4 h-4 rounded-full"
                     style={{ backgroundColor: context.color }}
                   />
-                  <span className="font-medium text-gray-900">@{context.name}</span>
+                  <span className="font-medium text-stone-900">@{context.name}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Button variant="ghost" size="sm" onClick={() => handleEdit(context)}>
-                    <svg className="w-4 h-4 text-gray-400 hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
+                    <Pencil className="w-4 h-4 text-stone-400 hover:text-amber-600" />
                   </Button>
                   <Button variant="ghost" size="sm" onClick={() => handleDelete(context.id)}>
-                    <svg className="w-4 h-4 text-gray-400 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
+                    <Trash2 className="w-4 h-4 text-stone-400 hover:text-rose-500" />
                   </Button>
                 </div>
               </CardContent>
@@ -141,14 +136,14 @@ export function ContextsPage() {
           />
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Color</label>
+            <label className="block text-sm font-medium text-stone-700 mb-2">Color</label>
             <div className="flex flex-wrap gap-2">
               {defaultColors.map((c) => (
                 <button
                   key={c}
                   type="button"
                   className={`w-8 h-8 rounded-full transition-transform ${
-                    color === c ? 'ring-2 ring-offset-2 ring-blue-500 scale-110' : ''
+                    color === c ? 'ring-2 ring-offset-2 ring-amber-500 scale-110' : ''
                   }`}
                   style={{ backgroundColor: c }}
                   onClick={() => setColor(c)}
