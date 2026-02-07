@@ -1,0 +1,15 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '--build-arg=VITE_API_URL=${_VITE_API_URL}'
+      - '--build-arg=VITE_GOOGLE_CLIENT_ID=${_VITE_GOOGLE_CLIENT_ID}'
+      - '-t'
+      - '${_IMAGE}'
+      - '.'
+images:
+  - '${_IMAGE}'
+substitutions:
+  _VITE_API_URL: 'https://gtd-backend-527462263711.us-central1.run.app'
+  _VITE_GOOGLE_CLIENT_ID: '527462263711-hl45iq2i0ct0c4ede5iftm8edqdddeaq.apps.googleusercontent.com'
+  _IMAGE: 'us-central1-docker.pkg.dev/kppahare-gtd/cloud-run-source-deploy/gtd-frontend:latest'
