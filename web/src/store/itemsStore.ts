@@ -15,7 +15,9 @@ interface ItemsState {
     type: ItemType,
     contextId?: string,
     projectId?: string,
-    dueDate?: string
+    dueDate?: string,
+    assignedTo?: string,
+    priority?: string
   ) => Promise<void>;
 }
 
@@ -53,12 +55,14 @@ export const useItemsStore = create<ItemsState>((set, get) => ({
     set({ items: get().items.map((i) => (i.id === id ? updated : i)) });
   },
 
-  processItem: async (id, type, contextId, projectId, dueDate) => {
+  processItem: async (id, type, contextId, projectId, dueDate, assignedTo, priority) => {
     const updated = await apiClient.processItem(id, {
       type,
       context_id: contextId,
       project_id: projectId,
       due_date: dueDate,
+      assigned_to: assignedTo,
+      priority,
     });
     set({ items: get().items.map((i) => (i.id === id ? updated : i)) });
   },

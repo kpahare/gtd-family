@@ -10,6 +10,13 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 
+class ItemPriority(str, enum.Enum):
+    p1 = "p1"
+    p2 = "p2"
+    p3 = "p3"
+    p4 = "p4"
+
+
 class ItemType(str, enum.Enum):
     inbox = "inbox"
     next_action = "next_action"
@@ -30,6 +37,7 @@ class Item(Base):
     type = Column(Enum(ItemType), default=ItemType.inbox, nullable=False)
     context_id = Column(String(36), ForeignKey("contexts.id"), nullable=True)
     assigned_to = Column(String(36), ForeignKey("users.id"), nullable=True)
+    priority = Column(Enum(ItemPriority), nullable=True)
     due_date = Column(DateTime, nullable=True)
     completed_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)

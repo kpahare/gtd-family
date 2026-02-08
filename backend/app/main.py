@@ -48,6 +48,12 @@ async def startup():
                 if col["name"] == "password_hash" and not col["nullable"]:
                     conn.execute(text("ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL"))
 
+    # Add priority column to items table
+    item_columns = [col["name"] for col in inspector.get_columns("items")]
+    with engine.begin() as conn:
+        if "priority" not in item_columns:
+            conn.execute(text("ALTER TABLE items ADD COLUMN priority VARCHAR(2)"))
+
 
 @app.get("/")
 async def root():

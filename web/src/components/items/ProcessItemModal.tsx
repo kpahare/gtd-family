@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Item, ItemType, Context, Project } from '../../types';
+import { Item, ItemType, Context, Project, FamilyMember } from '../../types';
 import { Modal, Button, Select, Input } from '../ui';
 
 interface ProcessItemModalProps {
@@ -11,10 +11,13 @@ interface ProcessItemModalProps {
     type: ItemType,
     contextId?: string,
     projectId?: string,
-    dueDate?: string
+    dueDate?: string,
+    assignedTo?: string,
+    priority?: string
   ) => Promise<void>;
   contexts: Context[];
   projects: Project[];
+  members?: FamilyMember[];
 }
 
 const itemTypes: { value: ItemType; label: string }[] = [
@@ -25,6 +28,14 @@ const itemTypes: { value: ItemType; label: string }[] = [
   { value: 'reference', label: 'Reference' },
 ];
 
+const priorityOptions = [
+  { value: '', label: 'No priority' },
+  { value: 'p1', label: '🔴 P1 — Urgent' },
+  { value: 'p2', label: '🟠 P2 — High' },
+  { value: 'p3', label: '🔵 P3 — Medium' },
+  { value: 'p4', label: '⚪ P4 — Low' },
+];
+
 export function ProcessItemModal({
   item,
   isOpen,
@@ -32,11 +43,14 @@ export function ProcessItemModal({
   onProcess,
   contexts,
   projects,
+  members = [],
 }: ProcessItemModalProps) {
   const [type, setType] = useState<ItemType>('next_action');
   const [contextId, setContextId] = useState('');
   const [projectId, setProjectId] = useState('');
   const [dueDate, setDueDate] = useState('');
+  const [assignedTo, setAssignedTo] = useState('');
+  const [priority, setPriority] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
@@ -49,7 +63,9 @@ export function ProcessItemModal({
         type,
         contextId || undefined,
         projectId || undefined,
-        dueDate || undefined
+        dueDate || undefined,
+        assignedTo || undefined,
+        priority || undefined
       );
       onClose();
       resetForm();
@@ -63,6 +79,8 @@ export function ProcessItemModal({
     setContextId('');
     setProjectId('');
     setDueDate('');
+    setAssignedTo('');
+    setPriority('');
   };
 
   const contextOptions = [
@@ -118,6 +136,25 @@ export function ProcessItemModal({
             onChange={(e) => setProjectId(e.target.value)}
             options={projectOptions}
           />
+
+          <Select
+            label="Priority"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+            options={priorityOptions}
+          />
+
+          {members.length > 0 && (
+            <Select
+              label="Assign to"
+              value={assignedTo}
+              onChange={(e) => setAssignedTo(e.target.value)}
+              options={[
+                { value: '', label: 'Unassigned' },
+                ...members.map((m) => ({ value: m.user_id, label: m.user_name })),
+              ]}
+            />
+          )}
 
           {(type === 'scheduled' || type === 'waiting_for') && (
             <Input

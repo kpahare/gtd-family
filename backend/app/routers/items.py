@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models.user import User
-from ..models.item import Item, ItemType
+from ..models.item import Item, ItemType, ItemPriority
 from ..schemas.item import ItemCreate, ItemUpdate, ItemResponse, ItemProcess
 from ..utils.auth import get_current_active_user
 
@@ -16,6 +16,7 @@ async def list_items(
     type: Optional[ItemType] = None,
     project_id: Optional[str] = None,
     context_id: Optional[str] = None,
+    priority: Optional[ItemPriority] = None,
     include_completed: bool = False,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
@@ -28,6 +29,8 @@ async def list_items(
         query = query.filter(Item.project_id == project_id)
     if context_id:
         query = query.filter(Item.context_id == context_id)
+    if priority:
+        query = query.filter(Item.priority == priority)
     if not include_completed:
         query = query.filter(Item.completed_at.is_(None))
 
@@ -48,6 +51,7 @@ async def create_item(
         project_id=item_data.project_id,
         context_id=item_data.context_id,
         assigned_to=item_data.assigned_to,
+        priority=item_data.priority,
         due_date=item_data.due_date
     )
     db.add(item)
@@ -172,6 +176,8 @@ async def process_item(
         item.context_id = process_data.context_id
     if process_data.assigned_to:
         item.assigned_to = process_data.assigned_to
+    if process_data.priority:
+        item.priority = process_data.priority
     if process_data.due_date:
         item.due_date = process_data.due_date
 

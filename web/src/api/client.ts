@@ -140,6 +140,7 @@ class ApiClient {
     project_id?: string;
     context_id?: string;
     assigned_to?: string;
+    priority?: string;
     due_date?: string;
   }): Promise<Item> {
     const response = await this.client.post<Item>('/items', data);
@@ -167,6 +168,7 @@ class ApiClient {
       project_id?: string;
       context_id?: string;
       assigned_to?: string;
+      priority?: string;
       due_date?: string;
     }
   ): Promise<Item> {

@@ -10,6 +10,8 @@ export type ProjectStatus = 'active' | 'completed' | 'someday';
 
 export type ProjectHorizon = 'project' | 'area' | 'goal' | 'vision' | 'purpose';
 
+export type ItemPriority = 'p1' | 'p2' | 'p3' | 'p4';
+
 export type FamilyRole = 'owner' | 'admin' | 'member';
 
 export interface User {
@@ -29,6 +31,7 @@ export interface Item {
   type: ItemType;
   context_id: string | null;
   assigned_to: string | null;
+  priority: ItemPriority | null;
   due_date: string | null;
   completed_at: string | null;
   created_at: string;

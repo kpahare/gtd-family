@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
-from ..models.item import ItemType
+from ..models.item import ItemType, ItemPriority
 
 
 class ItemCreate(BaseModel):
@@ -11,6 +11,7 @@ class ItemCreate(BaseModel):
     project_id: Optional[str] = None
     context_id: Optional[str] = None
     assigned_to: Optional[str] = None
+    priority: Optional[ItemPriority] = None
     due_date: Optional[datetime] = None
 
 
@@ -21,6 +22,7 @@ class ItemUpdate(BaseModel):
     project_id: Optional[str] = None
     context_id: Optional[str] = None
     assigned_to: Optional[str] = None
+    priority: Optional[ItemPriority] = None
     due_date: Optional[datetime] = None
 
 
@@ -29,6 +31,7 @@ class ItemProcess(BaseModel):
     project_id: Optional[str] = None
     context_id: Optional[str] = None
     assigned_to: Optional[str] = None
+    priority: Optional[ItemPriority] = None
     due_date: Optional[datetime] = None
 
 
@@ -41,6 +44,7 @@ class ItemResponse(BaseModel):
     type: ItemType
     context_id: Optional[str]
     assigned_to: Optional[str]
+    priority: Optional[ItemPriority]
     due_date: Optional[datetime]
     completed_at: Optional[datetime]
     created_at: datetime

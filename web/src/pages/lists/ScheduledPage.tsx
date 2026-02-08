@@ -1,16 +1,24 @@
 import { useEffect } from 'react';
-import { useItemsStore, useContextsStore } from '../../store';
+import { useItemsStore, useContextsStore, useFamilyStore } from '../../store';
 import { Header } from '../../components/layout';
 import { ItemList } from '../../components/items';
 
 export function ScheduledPage() {
   const { items, isLoading, fetchItems, completeItem, deleteItem } = useItemsStore();
   const { contexts, fetchContexts } = useContextsStore();
+  const { families, members, fetchFamilies, fetchMembers } = useFamilyStore();
 
   useEffect(() => {
     fetchItems('scheduled');
     fetchContexts();
-  }, [fetchItems, fetchContexts]);
+    fetchFamilies();
+  }, [fetchItems, fetchContexts, fetchFamilies]);
+
+  useEffect(() => {
+    if (families.length > 0) {
+      fetchMembers(families[0].id);
+    }
+  }, [families, fetchMembers]);
 
   const activeItems = items
     .filter((i) => i.type === 'scheduled' && !i.completed_at)
@@ -30,6 +38,7 @@ export function ScheduledPage() {
       <ItemList
         items={activeItems}
         contexts={contexts}
+        members={members}
         isLoading={isLoading}
         emptyMessage="Nothing scheduled"
         onComplete={completeItem}

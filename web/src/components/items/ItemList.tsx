@@ -1,10 +1,11 @@
-import { Item, Context } from '../../types';
+import { Item, Context, FamilyMember } from '../../types';
 import { ItemCard } from './ItemCard';
 import { Spinner } from '../ui';
 
 interface ItemListProps {
   items: Item[];
   contexts?: Context[];
+  members?: FamilyMember[];
   isLoading?: boolean;
   emptyMessage?: string;
   onComplete?: (id: string) => void;
@@ -16,6 +17,7 @@ interface ItemListProps {
 export function ItemList({
   items,
   contexts = [],
+  members = [],
   isLoading,
   emptyMessage = 'No items',
   onComplete,
@@ -47,6 +49,7 @@ export function ItemList({
           key={item.id}
           item={item}
           context={getContext(item.context_id)}
+          members={members}
           onComplete={onComplete}
           onDelete={onDelete}
           onProcess={onProcess}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
-import { useProjectsStore, useItemsStore, useContextsStore } from '../../store';
+import { useProjectsStore, useItemsStore, useContextsStore, useFamilyStore } from '../../store';
 import { Header } from '../../components/layout';
 import { ItemList, ItemForm } from '../../components/items';
 import { Button, Select, Spinner } from '../../components/ui';
@@ -19,6 +19,7 @@ export function ProjectDetailPage() {
   const { currentProject, isLoading: projectLoading, fetchProject, updateProject, deleteProject } = useProjectsStore();
   const { items, isLoading: itemsLoading, fetchItems, addItem, completeItem, deleteItem } = useItemsStore();
   const { contexts, fetchContexts } = useContextsStore();
+  const { families, members, fetchFamilies, fetchMembers } = useFamilyStore();
   const [status, setStatus] = useState<ProjectStatus>('active');
 
   useEffect(() => {
@@ -27,7 +28,14 @@ export function ProjectDetailPage() {
       fetchItems(undefined, id);
       fetchContexts();
     }
-  }, [id, fetchProject, fetchItems, fetchContexts]);
+    fetchFamilies();
+  }, [id, fetchProject, fetchItems, fetchContexts, fetchFamilies]);
+
+  useEffect(() => {
+    if (families.length > 0) {
+      fetchMembers(families[0].id);
+    }
+  }, [families, fetchMembers]);
 
   useEffect(() => {
     if (currentProject) {
@@ -114,6 +122,7 @@ export function ProjectDetailPage() {
         <ItemList
           items={projectItems}
           contexts={contexts}
+          members={members}
           isLoading={itemsLoading}
           emptyMessage="No items in this project"
           onComplete={completeItem}

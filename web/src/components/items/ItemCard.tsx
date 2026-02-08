@@ -1,10 +1,18 @@
-import { Check, Trash2 } from 'lucide-react';
-import { Item, Context } from '../../types';
+import { Check, Trash2, Flag } from 'lucide-react';
+import { Item, Context, FamilyMember, ItemPriority } from '../../types';
 import { Card, CardContent, Button } from '../ui';
+
+const priorityConfig: Record<ItemPriority, { label: string; classes: string }> = {
+  p1: { label: 'P1', classes: 'bg-rose-50 text-rose-700' },
+  p2: { label: 'P2', classes: 'bg-amber-50 text-amber-700' },
+  p3: { label: 'P3', classes: 'bg-sky-50 text-sky-700' },
+  p4: { label: 'P4', classes: 'bg-stone-100 text-stone-500' },
+};
 
 interface ItemCardProps {
   item: Item;
   context?: Context;
+  members?: FamilyMember[];
   onComplete?: (id: string) => void;
   onDelete?: (id: string) => void;
   onProcess?: (item: Item) => void;
@@ -14,6 +22,7 @@ interface ItemCardProps {
 export function ItemCard({
   item,
   context,
+  members = [],
   onComplete,
   onDelete,
   onProcess,
@@ -58,6 +67,24 @@ export function ItemCard({
                 {new Date(item.due_date).toLocaleDateString()}
               </span>
             )}
+            {item.priority && (
+              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${priorityConfig[item.priority].classes}`}>
+                <Flag className="w-3 h-3" />
+                {priorityConfig[item.priority].label}
+              </span>
+            )}
+            {item.assigned_to && (() => {
+              const member = members.find((m) => m.user_id === item.assigned_to);
+              const name = member?.user_name || 'Unknown';
+              return (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-violet-50 text-violet-700">
+                  <span className="w-4 h-4 rounded-full bg-violet-200 text-violet-700 flex items-center justify-center text-[10px] font-bold flex-shrink-0">
+                    {name.charAt(0).toUpperCase()}
+                  </span>
+                  {name}
+                </span>
+              );
+            })()}
           </div>
         </div>
 
